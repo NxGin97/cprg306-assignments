@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Return() {
   return (
-    <main>
+    <p>
       <Link href="/">Go to Home Page</Link>
-    </main>
+    </p>
   );
 }
