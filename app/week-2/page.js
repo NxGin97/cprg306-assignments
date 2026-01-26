@@ -1,5 +1,5 @@
-import StudentInfo from './student-info';
-import Return from './return';
+import StudentInfo from './StudentInfo';
+import Return from './ReturnHome';
 
 export default function Page() {
   return (
