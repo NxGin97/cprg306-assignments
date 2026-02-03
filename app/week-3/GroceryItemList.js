@@ -74,7 +74,7 @@ export default function GroceryItemList() {
     };
 
     return (
-        <section className= " ">
+        <section>
             <ul className="min-h-screen flex flex-col items-center justify-center font-size-30">
                 <Item{...item1} />
                 <Item{...item2} />
