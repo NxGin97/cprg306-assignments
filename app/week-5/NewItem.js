@@ -36,7 +36,6 @@ export default function NewItem() {
                             <input type="number" name="quantity" id="quantity" value={quantity} 
                             onChange={(e) => setQuantity(e.target.value)} 
                             min="1" max="99" 
-                            required 
                             className={inputStyle}>
                             </input>
                     </div>
@@ -44,7 +43,6 @@ export default function NewItem() {
                     <label htmlFor="category" className="text-gray-700">Category: </label>
                         <select name="category" id="category" value={category} 
                         onChange={(e) => setCategory(e.target.value)} 
-                        required 
                         className={inputStyle}>
                             <option value="produce">Produce</option>
                             <option value="dairy">Dairy</option>
