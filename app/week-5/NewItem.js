@@ -23,19 +23,29 @@ export default function NewItem() {
 
     return (
             <form onSubmit={handleSubmit} className="w-[420px] m-auto mt-10 rounded-xl border border-gray-300 p-4 bg-white">
-                <label className="text-gray-700">
-                    Name: 
-                    <input type="text" value={itemName} onChange={(e) => setItemName(e.target.value)} required placeholder="e.g., Cheddar cheese" className={inputStyle}></input>
-                </label>
+                <label htmlFor="item-name" className="text-gray-700">Name: </label> 
+                    <input type="text" name="name" id="item-name" value={itemName} 
+                    onChange={(e) => setItemName(e.target.value)} 
+                    required 
+                    placeholder="e.g., Cheddar cheese" 
+                    className={inputStyle}></input>
 
                 <div className="flex flex-row gap-4">
-                    <label className="text-gray-700">
-                        Quantity (1-99): 
-                        <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} min="1" max="99" required className={inputStyle}></input>
-                    </label>
-                    <label className="text-gray-700">
-                        Category: 
-                        <select value={category} onChange={(e) => setCategory(e.target.value)} required className={inputStyle}>
+                    <div>
+                        <label htmlFor="quantity" className="text-gray-700">Quantity (1-99): </label>
+                            <input type="number" name="quantity" id="quantity" value={quantity} 
+                            onChange={(e) => setQuantity(e.target.value)} 
+                            min="1" max="99" 
+                            required 
+                            className={inputStyle}>
+                            </input>
+                    </div>
+                    <div>
+                    <label htmlFor="category" className="text-gray-700">Category: </label>
+                        <select name="category" id="category" value={category} 
+                        onChange={(e) => setCategory(e.target.value)} 
+                        required 
+                        className={inputStyle}>
                             <option value="produce">Produce</option>
                             <option value="dairy">Dairy</option>
                             <option value="bakery">Bakery</option>
@@ -48,7 +58,7 @@ export default function NewItem() {
                             <option value="household">Household</option>
                             <option value="other">Other</option>
                         </select>
-                    </label>
+                    </div>
                 </div>
                     <div>
                         <button type="submit" className="bg-violet-800 text-white active:bg-grey-800 w-full rounded-md h-10 mt-5 hover:cursor-pointer hover:opacity-80">+</button>
