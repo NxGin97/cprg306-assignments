@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-
 export default function NewItem({ onAddItem }) {
     
     const [itemName, setItemName] = useState("");

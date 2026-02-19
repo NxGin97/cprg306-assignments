@@ -6,11 +6,7 @@ export default function SortButton({type, sortBy, setSortBy})  {
     const buttonStyleInactive = `${buttonStyle} bg-white opacity-70 text-violet-800 hover:bg-violet-200 hover:opacity-90 hover:cursor-pointer`
     //sortBy and setSortBy must get passed down by item-list to call it here. 
 
-    if (type === "Group By Category") {
-            
-        }
     return(
-
         <button onClick={() => setSortBy(type)} className={ sortBy === type ? buttonStyleActive : buttonStyleInactive }>{type}</button>
     )
 }

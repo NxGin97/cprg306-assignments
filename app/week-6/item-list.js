@@ -30,7 +30,6 @@ export default function ItemList({items}) {
         // if it is, use localeCompare, if not a-b. If 0 (FALSY) is returned (when a = b) in || comparator, then return second expression. 
         return (typeof valueA === "string"? valueA.localeCompare(valueB) : valueA - valueB) || a.name.localeCompare(b.name) ;});
 
-
     return(
         <section>
         <div className="flex justify-center items-center gap-4 mt-5 "> 
@@ -55,8 +54,8 @@ export default function ItemList({items}) {
                             </ul>
                     </div>
                 </li>))} 
-            </ul>) : 
-            (
+            </ul>) 
+            : (
             <ul className="grid grid-cols-2 gap-4 max-w-[850px] mx-auto">
                 {sortedItems.map((item) => (<li key={item.id}><Item{...item} /></li>))}
             </ul> 

@@ -16,7 +16,6 @@ export default function ItemByCategory() {
     return groups;
     }, {});
     
-
     // note: now destructure itemsByCategory into category and its items. for each category (from 'categoryItems') display 
     // header for that category and display each item in category using <li><Items><</li>. (Nested loop)
     return (
