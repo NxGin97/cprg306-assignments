@@ -25,7 +25,7 @@ export default function Home() {
     },
     {
     title: "Week 7",
-    pageLink: "empty-page",
+    pageLink: "week-7",
     },
     {
     title: "Week 8",
