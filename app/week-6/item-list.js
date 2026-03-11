@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import SortButton from "./sort-button";
+import SortButton from "../components/SortButton";
 import Item from "./item"
 
 //items is the list of items. you take the items from json and then map it. then use <Item /> for styling each iteration

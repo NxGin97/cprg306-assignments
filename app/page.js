@@ -29,7 +29,7 @@ export default function Home() {
     },
     {
     title: "Week 8",
-    pageLink: "empty-page",
+    pageLink: "week-8",
     },
   ];
 
