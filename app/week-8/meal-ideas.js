@@ -22,12 +22,15 @@ async function fetchMealIdeas(ingredient) {
 
 export default function MealIdeas({ingredient}) {
     const [meals, setMeals] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     //whenever 'ingredients' is changed, refresh fetch
 useEffect(() => {
     async function loadMealIdeas() {
+        setLoading(true);
         const meals = await fetchMealIdeas(ingredient);
         setMeals(meals);
+        setLoading(false)
     }
     loadMealIdeas();
 }, [ingredient]);
@@ -47,8 +50,12 @@ useEffect(() => {
             {/*If ingredient not selected*/}
             {!ingredient && (<p className="text-sm text-gray-500 ml-2">Choose an item to see ideas.</p>)}
 
-            {/*If ingredient is selected but no meals in list */}
-            {ingredient && meals.length === 0 && (<p className="text-sm text-gray-500 pl-2">No meals found.</p>)}
+            {/* Ingredient exist and Loading true*/}
+            {ingredient && loading && (
+            <p className="text-sm text-gray-500 pl-2">Loading...</p>
+            )}
+            {/*If ingredient is selected, it is not loading, but no meals in list */}
+            {ingredient && !loading && meals.length === 0 && (<p className="text-sm text-gray-500 pl-2">No meals found.</p>)}
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 grid-rows-auto">
                 {meals.map((meal) => (
