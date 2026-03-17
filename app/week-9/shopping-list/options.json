@@ -1,0 +1,46 @@
+[
+    {
+    "value": "produce",
+    "title": "Produce"
+    },
+    {
+    "value": "dairy",
+    "title": "Dairy"
+    },
+    {
+    "value": "bakery",
+    "title": "Bakery"
+    },
+    {
+    "value": "meat",
+    "title": "Meat"
+    },
+    {
+    "value": "frozen-foods",
+    "title": "Frozen Food"
+    },
+    {
+    "value": "canned-food",
+    "title": "Canned Food"
+    },
+    {
+    "value": "dry-goods",
+    "title": "Dry Goods"
+    },
+    {
+    "value": "beverage",
+    "title": "Beverage"
+    },
+    {
+    "value": "snacks",
+    "title": "Snacks"
+    },
+    {
+    "value": "household",
+    "title": "Household"
+    },
+    {
+    "value": "other",
+    "title": "Other"
+    }
+]

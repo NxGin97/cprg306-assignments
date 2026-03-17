@@ -31,6 +31,10 @@ export default function Home() {
     title: "Week 8",
     pageLink: "week-8",
     },
+    {
+    title: "Week 9",
+    pageLink: "week-9",
+    },
   ];
 
   return (
@@ -45,6 +49,7 @@ export default function Home() {
           <NavListItem {...pages[4]} />
           <NavListItem {...pages[5]} />
           <NavListItem {...pages[6]} />
+          <NavListItem {...pages[7]} />
         </ul>
       </nav>
     </main>
