@@ -1,14 +1,16 @@
 "use client";
 
 import { useContext, createContext, useState, useEffect } from "react";
-import { signInWithPopup, signOut, onAuthStateChanged, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
+import { signInWithPopup, signOut, onAuthStateChanged, 
+    GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider, 
+    signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth";
 import { auth } from "../utils/firebase";
 
 const AuthContext = createContext(); //creates global contect object, holds: user, login, logout
 
 export const AuthContextProvider = ({children}) => {
-    //the children = all component wrapped inside the provider
-    const [user, setUser] = useState(null); //defaults to null (not logged in). Sroes the current logged in user
+    //the children = all component wrapped inside the provider will be given access to the user when it is set (and not null)
+    const [user, setUser] = useState(null); //defaults to null (not logged in). Sets the current logged in user
 
     //creates GitHub login provider (taken from firebase)
     const gitHubSignIn = () => {
@@ -24,7 +26,14 @@ export const AuthContextProvider = ({children}) => {
         return signInWithPopup(auth, provider);
     };
 
-    //logs the user out
+    const emailSignIn = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    };
+
+    const emailSignUp = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
+
     const firebaseSignOut = () => {
         return signOut(auth);
     };
@@ -45,7 +54,7 @@ export const AuthContextProvider = ({children}) => {
     //     }
     
     return (
-        <AuthContext.Provider value = {{ user, gitHubSignIn, facebookSignIn, googleSignIn, firebaseSignOut }}>
+        <AuthContext.Provider value = {{ user, gitHubSignIn, facebookSignIn, googleSignIn, emailSignIn, emailSignUp, firebaseSignOut }}>
             {children}
         </AuthContext.Provider>
     );

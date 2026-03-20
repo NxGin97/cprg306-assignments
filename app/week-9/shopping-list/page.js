@@ -58,6 +58,7 @@ export default function Page() {
         <main className="bg-violet-100 py-10">
             <PageHeader title="Week 9: Shopping List + Meal Ideas (Authenticated)" />
             {/* When the screen size is greater than 950px, adjust to two columns instead of one*/}
+            <h2 className="text-4xl text-center font-bold mt-10 text-gray-700"> Welcome! {user?.displayName || user?.email} </h2>
             <div className=" gap-10 max-w-6xl mx-auto grid min-[950px]:grid-cols-2">
                 <div>
                 <NewItem onAddItem={handleAddItem} />
