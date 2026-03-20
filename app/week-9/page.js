@@ -56,7 +56,7 @@ return (
     <main className="bg-violet-100 py-10 min-h-screen">
     <div className=" p-10">
       {/* If user is NOT logged in */}
-        {!user && (
+        {!user ? (
             <section>
             <h2 className= "text-center text-3xl font-bold m-6">Sign In</h2>
             <div className="flex flex-col">
@@ -101,6 +101,8 @@ return (
                 </button>
             </div>
             </section>
+        ) : (
+            <p className="text-center">Redirecting...</p>
         )}
         </div>
         <ReturnHome />

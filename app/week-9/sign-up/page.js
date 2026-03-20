@@ -10,7 +10,7 @@ import ReturnHome from "../../components/ReturnHome";
 
 export default function Home() {
     // Use the useUserAuth hook to get the user object email sign up
-    const { user, emailSignUp } = useUserAuth();
+    const { user, emailSignUp, signOut, auth } = useUserAuth();
     const router = useRouter();
 
     //set error messages that may be 'caught' during handling
@@ -24,8 +24,8 @@ export default function Home() {
         e.preventDefault();
         try {
             await emailSignUp(email, password);
-            //prevents user from being 'logged in' right after creation
             await signOut(auth);
+            //prevents user from being 'logged in' right after creation
             router.replace("/week-9")
         }
         catch (error) {
