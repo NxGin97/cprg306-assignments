@@ -9,6 +9,10 @@ export const getFirebaseErrorMessage = (error) => {
             return "Invalid credentials.";
         case "auth/wrong-password":
             return "Incorrect password.";
+        case "auth/missing-email":
+            return "Please enter your email address."
+        case "auth/missing-password":
+            return "Please enter your password."
         default:
             return "Something went wrong. Please try again.";
     }

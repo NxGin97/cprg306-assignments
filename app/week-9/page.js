@@ -96,7 +96,7 @@ return (
             <div className="flex flex-row justify-center gap-1 items-baseline">
                 <p className="text-center text-sm mt-2"> Don't have an account?</p>
                 <button
-                onClick={() => router.replace("/week-9/sign-up")}
+                // onClick={() => router.replace("/week-9/sign-up")}
                 className=" text-sm text-blue-600 underline hover:text-blue-400 hover:cursor-pointer">Sign up
                 </button>
             </div>
