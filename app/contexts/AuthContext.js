@@ -11,6 +11,7 @@ const AuthContext = createContext(); //creates global contect object, holds: use
 export const AuthContextProvider = ({children}) => {
     //the children = all component wrapped inside the provider will be given access to the user when it is set (and not null)
     const [user, setUser] = useState(null); //defaults to null (not logged in). Sets the current logged in user
+    const [loading, setLoading] = useState(true);
 
     //creates GitHub login provider (taken from firebase)
     const gitHubSignIn = () => {
@@ -40,7 +41,19 @@ export const AuthContextProvider = ({children}) => {
 
     //runs every time auth state changes (login, logout, refresh)
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {setUser(currentUser); //updates user. if user is null, logged out, if user exists, logged in. 
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if(currentUser) {
+                console.log("User authenticated: ", currentUser.email);
+            } else {
+                console.log("No user found");
+            }
+            setUser(currentUser); //updates user. if user is null, logged out, if user exists, logged in. 
+            setLoading(false);
+            
+        }, (error) => {
+            console.error("Authorization error", error);
+            setUser(null);
+            setLoading(false);
         });
         return() => unsubscribe();  //doesn't listen when component is unmounted
     }, );

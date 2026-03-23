@@ -39,7 +39,7 @@ useEffect(() => {
     return (
         <section className="min-[950px]:w-[420px] m-auto mt-10 rounded-xl border border-gray-300 py-4 pb-12 px-6 bg-white">
             <div className="flex flex-row">
-                <p className= "p-2"> Meal Ideas for: </p>
+                <p className= "p-2 text-gray-800"> Meal Ideas for: </p>
                 {/*If ingredient exists, then style */}
                 {ingredient && (
                 <p className="bg-violet-700 text-white rounded-xl p-2 px-2 capitalize opacity-90">
