@@ -42,11 +42,6 @@ export const AuthContextProvider = ({children}) => {
     //runs every time auth state changes (login, logout, refresh)
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if(currentUser) {
-                console.log("User authenticated: ", currentUser.email);
-            } else {
-                console.log("No user found");
-            }
             setUser(currentUser); //updates user. if user is null, logged out, if user exists, logged in. 
             setLoading(false);
             
@@ -56,7 +51,7 @@ export const AuthContextProvider = ({children}) => {
             setLoading(false);
         });
         return() => unsubscribe();  //doesn't listen when component is unmounted
-    }, );
+    }, [] );
 
     //Firebase user object:
     // {

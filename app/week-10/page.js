@@ -10,15 +10,19 @@ export default function Home() {
     const { user, loading } = useUserAuth();
     const router = useRouter();
 
-    if(loading) {
-        return <p className="text-center mt-10"> Loading... </p>
-    }
+    // if(!loading && !user) {
+    //     router.push("/")
+    // }
     
     useEffect(() => {
         if (user) {
         router.push("/week-10/shopping-list");
         }
     }, [user, router]);
+    
+    if(loading) {
+        return <p className="text-center mt-10"> Loading... </p>
+    }
 
 return (
     <main className="bg-violet-100 py-10 min-h-screen">
