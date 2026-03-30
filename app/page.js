@@ -1,5 +1,11 @@
+"use client" 
+
 import NavListItem from "./components/NavListItem";
 import PageHeader from "./components/PageHeader";
+import { useUserAuth } from "./contexts/AuthContext";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import SignOut from "./components/SignOut";
 
 export default function Home() {
   const pages = [
@@ -35,23 +41,42 @@ export default function Home() {
     title: "Week 9",
     pageLink: "week-9",
     },
+    {
+    title: "Week 10",
+    pageLink: "week-10",
+    },
   ];
 
-  return (
+  const {user, loading} = useUserAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if(!loading) {
+      if(user) {
+        router.replace("/");
+      } else {
+      router.replace("/auth") //or week-9 
+      }
+    }
+  }, [user, loading, router]);
+
+return (
   <main className="bg-violet-100 py-10">
-      <PageHeader title="CPRG 306: Web Development 2 - Assignments" />
-      <nav>
-        <ul>
-          <NavListItem {...pages[0]} />
-          <NavListItem {...pages[1]} />
-          <NavListItem {...pages[2]} />
-          <NavListItem {...pages[3]} />
-          <NavListItem {...pages[4]} />
-          <NavListItem {...pages[5]} />
-          <NavListItem {...pages[6]} />
-          <NavListItem {...pages[7]} />
-        </ul>
-      </nav>
-    </main>
-  );
+    {loading ? (
+      <p className="text-center mt-10">Loading...</p>
+    ) : !user ? (
+      <p className="text-center mt-10">Redirecting to login...</p>
+    ) : (
+      <>
+        <PageHeader title="CPRG 306: Web Development 2 - Assignments" />
+        <nav>
+          <ul>
+            {pages.map((page, index) => (<NavListItem key={index} {...page} />))}
+          </ul>
+        </nav>
+      </>
+    )}
+    <SignOut/>
+  </main>
+);
 }

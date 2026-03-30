@@ -2,10 +2,12 @@
 
 import PageHeader from "../../components/PageHeader"
 import NewItem from "./NewItem"
-import itemsData from "./items"
+// import itemsData from "./items"
 import ItemList from "./item-list"
 import MealIdeas from "./meal-ideas"
 import ReturnHome from "@/app/components/ReturnHome"
+
+import { getItems, addItem, removeItem } from "../_services/shopping-list-service"
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
@@ -13,23 +15,40 @@ import { useUserAuth } from "../../contexts/AuthContext"
 
 
 export default function Page() {
-//Note: items was a prop that had to be passed down. itemsData is the original data from items data, it now becomes items. 
-//this is were items is updated and reset (it needs to be in a global area where it can reach both newitem and itemlist). 
-//when items get added from newitem (handle add item ) it sets the new data = data + new data, which item list can reach since they both use items. 
-    const [items, setItems] = useState(itemsData);
+
+    const [items, setItems] = useState([]);
     const [selectedItemName, setSelectedItemName] = useState("");
-    const { user, firebaseSignOut } = useUserAuth();
+    const { user, loading } = useUserAuth();
     const router = useRouter();
+    
+    async function loadItems() {
+        try {
+            const loadedItems = await getItems(user.uid);
+            setItems(loadedItems);
+        } catch (error) {
+            console.error("Error loading items: ", error);
+        }
+    }
 
     useEffect(() => {
-        if(!user) {
-            router.replace("/week-9");
+        if (loading) return;
+        if (!user) {
+            router.replace("/auth");
+            return;
         }
-    }, [user]);
+        loadItems();
+    }, [user, loading]);
+
+    if (loading || !user ) {
+        return <p className="text-center mt-10">Loading...</p>
+    }
 
 
-    const handleAddItem = (newItem) => {
-        setItems((prev) => [...prev, newItem]);
+    async function handleAddItem(newItem) {
+        const itemId = await addItem(user.uid, newItem);
+        const itemWithId = {...newItem, id: itemId};
+
+        setItems((prev) => [...prev, itemWithId]);
     }
 
 
@@ -46,16 +65,24 @@ export default function Page() {
     }
 
     return (
-        <main className="bg-violet-100 py-10">
-            <PageHeader title="Week 9: Shopping List + Meal Ideas (Authenticated)" />
+        <main className="bg-violet-100 py-10 min-h-screen">
+            <PageHeader title="Week 10: Shopping List + Meal Ideas 
+            (Firebase)" />
             {/* When the screen size is greater than 950px, adjust to two columns instead of one*/}
             <h2 className="text-4xl text-center font-bold mt-10 text-gray-700"> Welcome! {user?.displayName || user?.email} </h2>
             <div className=" gap-10 max-w-6xl mx-auto grid min-[950px]:grid-cols-2">
                 <div>
                 <NewItem onAddItem={handleAddItem} />
 
-                {/*When items in the ItemList are clicked, setSelectedItemName to that item, mealideas than use that item as the search param for the api to return list of meals*/}
-                <ItemList items={items} onItemSelect={handleItemSelect}/>
+                {items.length === 0 ? (
+                    <div className="flex justify-center items-center border-8 border-double border-violet-400 bg-white rounded-xl mx-auto p-5 mt-5 w-[420px] h-[100px]">
+                        <p className="text-gray-500 ">
+                            No items currently in your list.
+                        </p>
+                    </div>
+                    ) : (
+                    <ItemList items={items} onItemSelect={handleItemSelect} />
+                    )}
                 </div>
                 <MealIdeas ingredient={selectedItemName}/>
             </div>

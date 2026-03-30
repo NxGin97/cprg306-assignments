@@ -67,7 +67,7 @@ export const AuthContextProvider = ({children}) => {
     //     }
     
     return (
-        <AuthContext.Provider value = {{ user, gitHubSignIn, facebookSignIn, googleSignIn, emailSignIn, emailSignUp, firebaseSignOut }}>
+        <AuthContext.Provider value = {{ user, loading, gitHubSignIn, facebookSignIn, googleSignIn, emailSignIn, emailSignUp, firebaseSignOut }}>
             {children}
         </AuthContext.Provider>
     );
@@ -75,6 +75,10 @@ export const AuthContextProvider = ({children}) => {
 
 //const {user, gitHubSignIn } useUserAuth(); //custom hook.
 export const useUserAuth = () => {
-    return useContext(AuthContext);
+    const context = useContext(AuthContext);
+    if(context === undefined) {
+        throw new Error("Context Error: useUserAuth must be within the Auth provider")
+    }
+    return context;
 };
 

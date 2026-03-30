@@ -12,7 +12,7 @@ export default function Home() {
 
     useEffect(() => {
         if (user) {
-    router.push("/week-9/shopping-list");
+    router.push("/");
 }
 }, [user, router]);
 
