@@ -51,7 +51,6 @@ export default function Page() {
         setItems((prev) => [...prev, itemWithId]);
     }
 
-
     //used to remove emoji's commas and weight so that it can be passed into the api 
     function cleanName(name) {
     let base = name.split(",")[0];
@@ -63,6 +62,12 @@ export default function Page() {
     const handleItemSelect = (item) => {
         setSelectedItemName(cleanName(item.name));
     }
+
+    async function handleDeleteItem(itemId) {
+        await removeItem(user.uid, itemId);
+
+        setItems((prev) => prev.filter(item => item.id !== itemId));
+}
 
     return (
         <main className="bg-violet-100 py-10 min-h-screen">
@@ -81,7 +86,7 @@ export default function Page() {
                         </p>
                     </div>
                     ) : (
-                    <ItemList items={items} onItemSelect={handleItemSelect} />
+                    <ItemList items={items} onItemSelect={handleItemSelect} onItemDelete={handleDeleteItem} />
                     )}
                 </div>
                 <MealIdeas ingredient={selectedItemName}/>

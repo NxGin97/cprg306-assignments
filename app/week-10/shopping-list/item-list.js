@@ -6,7 +6,7 @@ import SortButton from "../../components/SortButton";
 import Item from "./item"
 import { getCategoryTitle } from "@/app/utils/categoryUtil";
 
-export default function ItemList({items, onItemSelect}) {
+export default function ItemList({items, onItemSelect, onItemDelete}) {
 
     const itemsByCategory = items.reduce((groups, item) => {
     const category = item.category.toLowerCase().replace(/\s+/g, "-"); //for item.json category inconsistencies
@@ -51,7 +51,7 @@ export default function ItemList({items, onItemSelect}) {
                     <div className="max-w-[850px] mx-auto">
                         <h2 className="font-bold text-lg opacity-80 text-center bg-white rounded-xl p-2 border-violet-400 max-w-[200px] border-3 mt-5 capitalize text-gray-800">{getCategoryTitle(category)}</h2>
                             <ul className="grid grid-cols-2 gap-x-4 max-w-[850px] mx-auto">
-                                {categoryItems.map(item => (<li key={item.id}> <Item {...item} onSelect={() => onItemSelect && onItemSelect(item)}/></li>))}
+                                {categoryItems.map(item => (<li key={item.id}> <Item {...item} onSelect={() => onItemSelect(item)} onDelete={onItemDelete}/></li>))}
                             </ul>
                     </div>
                 </li>))} 
@@ -59,7 +59,7 @@ export default function ItemList({items, onItemSelect}) {
             : (
             <ul className="grid grid-cols-2 gap-4 max-w-[850px] mx-auto">
                 {/*Item component receives onSelect as a prop. When the item is clicked, onSelect calls onItemSelect(item) in the parent component. Its the same as onClick. When the item is clicked, call onItemSelect with that item*/}
-                {sortedItems.map((item) => (<li key={item.id}><Item {...item} onSelect={() => onItemSelect && onItemSelect(item)} /></li>))}
+                {sortedItems.map((item) => (<li key={item.id}><Item {...item} onSelect={() => onItemSelect(item)} onDelete={onItemDelete} /></li>))}
             </ul> 
             )}
         </section>

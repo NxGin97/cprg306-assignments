@@ -1,5 +1,5 @@
 import { db } from "@/app/utils/firebase";
-import {collection, getDocs, addDoc, deleteDoc, query } from "firebase/firestore";
+import {collection, doc, getDocs, addDoc, deleteDoc, query } from "firebase/firestore";
 
 export async function getItems(userId) {
     const items = [];
@@ -14,7 +14,7 @@ export async function getItems(userId) {
 
     return items;
 
-    } catch(err) {
+    } catch(error) {
         console.error("Error reading collection: 'users'" );
         return [];
     }
@@ -25,7 +25,7 @@ export async function addItem(userId, item) {
         //"item" is where the object array goes in
         const querySnapshot = await addDoc(collection(db, "users", userId, "items"), item);
         return querySnapshot.id;
-    } catch (err)
+    } catch (error)
     {
         console.error("Error adding to collection: 'users'");
         return null;
@@ -36,8 +36,8 @@ export async function removeItem(userId, itemId) {
     try {
         await deleteDoc(doc(db, "users", userId, "items", itemId));
         return true;
-    } catch (err) {
-        console.error("Error removing item: 'users'");
+    } catch (error) {
+        console.error("Error removing item: ", error);
         return false;
     }
 }
